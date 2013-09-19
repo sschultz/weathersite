@@ -28,8 +28,11 @@
 	  
 	if($result)
 	{
-		$precip = mysqli_fetch_array($result, MYSQLI_ASSOC);
-		$data = array_merge($data, $precip);
+		$precip = mysqli_fetch_array($result, MYSQLI_NUM);
+		if(strlen($precip[0]) == 0)
+			$data = array_merge($data, array('Precip' => "0"));
+		else
+			$data = array_merge($data, $precip);
 	}
 	else
 	{
