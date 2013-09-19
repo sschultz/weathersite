@@ -6,6 +6,7 @@
   echo "Filed to connect to Database";
   }
 
+	//create SQL querry
   $result = mysqli_query($con,
    'SELECT DATE_FORMAT(TIMESTAMP, "%m/%d/%Y %r CST") AS Date,
     Tmp_110S_5ft_Avg AS Temp,
