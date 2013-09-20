@@ -5,8 +5,8 @@
   <link rel='stylesheet' type='text/css' href='base.css'>
   <link rel='stylesheet' type='text/css' href='index.css'>
   <title>Weather Station</title>
-  <script src="jquery-1.10.2.min.js"></script>
-  <script src="index.js"></script>
+  <script src="js/jquery-1.10.2.min.js"></script>
+  <script src="js/index.js"></script>
 </head>
 <body onload="init()">
 <div id='blackout'>

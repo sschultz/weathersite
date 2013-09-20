@@ -3,7 +3,8 @@
   $con=mysqli_connect("localhost","","","weather");
   if (mysqli_connect_errno()) 
   { 
-  echo "Filed to connect to Database";
+		echo "Filed to connect to Database";
+		exit();
   }
 
 	//create SQL querry
