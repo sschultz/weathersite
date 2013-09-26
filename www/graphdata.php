@@ -36,11 +36,13 @@ if(!$result) {
 	exit();
 }
 
+//generate indevidual [x,y] arrays that are [timestamp, value] formatted
 while($row = $result->fetch_assoc()){
-	$temps[] = array(intval($row['Timestamp'])*1000-18000000, round(floatval($row['Temp'])*9.0/5.0+32, 2));
-	$hum[] = array(intval($row['Timestamp'])*1000-18000000, round(floatval($row['Humidity']), 2));
-	$pres[] = array(intval($row['Timestamp'])*1000-18000000, round(floatval($row['Pressure'])*0.295299801, 2));
-	$wind[] = array(intval($row['Timestamp'])*1000-18000000, round(floatval($row['WindSpeed'])*2.2369, 2));
+	$timeoffset = intval($row['Timestamp'])*1000-18000000;
+	$temps[] = array($timeoffset, round(floatval($row['Temp'])*9.0/5.0+32, 2));
+	$hum[] = array($timeoffset, round(floatval($row['Humidity']), 2));
+	$pres[] = array($timeoffset, round(floatval($row['Pressure'])*0.295299801, 2));
+	$wind[] = array($timeoffset, round(floatval($row['WindSpeed'])*2.2369, 2));
 }
 
 if(empty($temps)){
@@ -56,6 +58,7 @@ $result = mysqli_query($con,
 	
 $firstRow = $result->fetch_assoc();
 
+//Combine the datasets to a single array, this array will be turned into a json object
 $data = array('Start' => intval($firstRow['TIMESTAMP'])*1000-18000000,
 	'Temp' => $temps, 'Humidity' => $hum,
 	'Pressure' => $pres, 'WindSpeed' => $wind);
