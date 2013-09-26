@@ -8,6 +8,7 @@ if(empty($_GET['start']) || empty($_GET['end'])){
 else {
 	$start = new DateTime($_GET['start']);
 	$end = new DateTime($_GET['end']);
+	$end->add(new DateInterval('P1D'));
 }
 
 $con=mysqli_connect("localhost","","","weather");

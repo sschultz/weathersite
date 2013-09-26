@@ -2,7 +2,6 @@ $(function() {
   start = new Date();
   start.setDate(start.getDate() - 1);
   end = new Date();
-  end.setDate(end.getDate()+1);
   $('#start-date').datepicker();
   $('#start-date').val((start.getMonth()+1)+'/'+start.getDate()+'/'+start.getFullYear());
   $('#end-date').datepicker();
