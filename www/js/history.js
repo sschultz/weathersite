@@ -37,8 +37,6 @@ function updateGraphs(start, end) {
       series: [
         {
           name:'Temperature',
-          pointInterval: 600000,
-          pointStart: phpData.Start,
           data: phpData.Temp
         }
       ],
@@ -66,8 +64,6 @@ function updateGraphs(start, end) {
       series: [
         {
           name:'Humidity',
-          pointInterval: 600000,
-          pointStart: phpData.Start,
           data: phpData.Humidity
         }
       ],
@@ -95,8 +91,6 @@ function updateGraphs(start, end) {
       series: [
         {
           name:'Pressure',
-          pointInterval: 600000,
-          pointStart: phpData.Start,
           data: phpData.Pressure
         }
       ],
@@ -124,8 +118,6 @@ function updateGraphs(start, end) {
       series: [
         {
           name:'Wind Speed',
-          pointInterval: 600000,
-          pointStart: phpData.Start,
           data: phpData.Pressure
         }
       ],
