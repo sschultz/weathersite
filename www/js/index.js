@@ -37,13 +37,25 @@ function imageClicked()
 }
 function genCamEle(cams)
 {
+  var outer = $('<table class="camframe"></table>');
+  var row = $('<tr></tr>');
 	//No more than 3 on the front page
 	for(var i=0;i<cams.length && i<3;i++)
 	{
-		var img = $('<img class="camImage" src="'+cams[i]+'" width="190" height="142"/>');
-		img.click(imageClicked);
-		img.appendTo($('#cams'));
+    var tdata = $('<td></td>');
+		var img = $('<img class="camImage" src="'+cams[i].URL+'" width="190" height="142"/>');
+    img.click(imageClicked);
+    img.appendTo(tdata);
+    tdata.appendTo(row);
 	}
+  row.appendTo(outer);
+  
+  row = $('<tr></tr>');
+  for(var i=0;i<cams.length && i<3;i++)
+    $('<td>'+cams[i].Desc+' ('+cams[i].Direction+')'+'</td>').appendTo(row);
+    
+  row.appendTo(outer);
+  outer.appendTo($('#cams'));
 }
 
 function updateTempGraph() {
@@ -96,7 +108,7 @@ function init()
 	},60000);
 	
 	//generate cam list
-	$.getJSON("working.txt", genCamEle);
+	$.getJSON("working.php", genCamEle);
   
   updateTempGraph();
 }
