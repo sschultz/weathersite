@@ -6,9 +6,12 @@
   <link rel='stylesheet' type='text/css' href='index.css'>
   <title>Weather Station</title>
   <script src="js/jquery-1.10.2.min.js"></script>
+  <script src="js/highcharts.js"></script>
   <script src="js/index.js"></script>
 </head>
 <body onload="init()">
+<script src="js/modules/exporting.js"></script>
+<script src="js/themes/grid.js"></script>
 <div id='blackout'>
 </div>
 <div id='menu'>
@@ -21,8 +24,6 @@
 </div>
 
 <div id='content'>
-  <div id='cams'>
-  </div>
   <div id='weather-content'>
     <div id='weather-heading'>
       Hays Weather Conditions<br/>
@@ -42,6 +43,8 @@
       </td></tr>
     </table>
   </div>
+  <div id='tempgraph' style="width: 580px; height: 250px; margin: 0 4px 3px"></div>
+  <div id='cams'></div>
 </div>
 
 </body>

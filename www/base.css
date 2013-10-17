@@ -29,7 +29,7 @@ background: -ms-linear-gradient(top,  #c5deea 28%,#8abbd7 69%,#066dab 100%);
 background: linear-gradient(to bottom,  #c5deea 28%,#8abbd7 69%,#066dab 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c5deea', endColorstr='#066dab',GradientType=0 );
 }
-#content {background-image:url(background.png);background-position:center;background-size:100% 100%;width:600px;height:500px;
+#content {background-image:url(background.png);background-position:center;background-size:100% 100%;width:600px;height:1070px;
 padding-left:10px;padding-top:10px;
 border-color:black;border-style:ridge;border-width:3px;border-style:groove;
 border-bottom-left-radius:15px;border-bottom-right-radius:15px;}

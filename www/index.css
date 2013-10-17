@@ -1,4 +1,4 @@
-#weather-content {background-color:#00FF00;border-radius:15px; margin-top:20px; padding: 0px 0px 10px 10px;width:450px; border: solid 1px;
+#weather-content {background-color:#00FF00;border-radius:15px; margin-bottom:20px; padding: 0px 0px 10px 10px;width:450px; border: solid 1px;
 background-image: -ms-radial-gradient(center, ellipse farthest-corner, #00FF00 0%, #AAFFAA 100%);background-image: -moz-radial-gradient(center, ellipse farthest-corner, #00FF00 0%, #AAFFAA 100%); background-image: -o-radial-gradient(center, ellipse farthest-corner, #00FF00 0%, #AAFFAA 100%); background-image: -webkit-gradient(radial, center center, 0, center center, 494, color-stop(0, #00FF00), color-stop(1, #AAFFAA)); background-image: -webkit-radial-gradient(center, ellipse farthest-corner, #00FF00 0%, #AAFFAA 100%);background-image: radial-gradient(ellipse farthest-corner at center, #00FF00 0%, #AAFFAA 100%);}
 #weather-heading {font-size:24pt;margin-top:10px;text-shadow: 2px 1px #50C050;}
 #mlabel {text-align:right;margin-right:5px;}

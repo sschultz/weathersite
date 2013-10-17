@@ -18,7 +18,7 @@ function updateWeather(data)
 	else if(wind_dir_deg >= 202.5 && wind_dir_deg < 337.5)
 		wind_dir = wind_dir + 'West';
 	
-	document.getElementById("date").innerHTML = d.getMonth()+1 + '/' + d.getDate() + '/'+ d.getFullYear() + ' ' + d.toLocaleTimeString();
+	document.getElementById("date").innerHTML = "As of " + (d.getMonth()+1) + '/' + d.getDate() + '/'+ d.getFullYear() + ' ' + d.toLocaleTimeString();
 	document.getElementById("temp").innerHTML = "<b>" + temp + " &deg;F</b>";
 	document.getElementById("Humidity_val").innerHTML = data['Humidity'] + '%';
 	document.getElementById("Pressure_val").innerHTML = pressure + ' inHg';
@@ -45,6 +45,49 @@ function genCamEle(cams)
 		img.appendTo($('#cams'));
 	}
 }
+
+function updateTempGraph() {
+  startD = new Date();
+  startD.setDate(startD.getDate() - 1);
+  endD = new Date();
+  
+  //format start and end strings
+  start = (startD.getMonth()+1)+'/'+startD.getDate()+'/'+startD.getFullYear();
+  end = (endD.getMonth()+1)+'/'+endD.getDate()+'/'+endD.getFullYear();
+  
+  $.getJSON("graphdata.php",
+  { 'start' : start,
+    'end' : end },
+  function( phpData ) {
+    $('#tempgraph').highcharts({
+      title: {text: 'Temperature'},
+      chart: {zoomType: 'x'},
+      xAxis: {
+        title: {text: 'Date'},
+        //dateTimeLabelFormats: {day: ''}
+        type: "datetime"
+      },
+      yAxis: {
+        allowDecimals: false,
+        title: {text: 'Temperature (°F)'},
+        plotLines: [{
+          value: 0,
+          width: 1,
+          color: '#808080'
+      }]},
+      tooltip: {valueSuffix: '°F'},
+      legend: {enabled: false},
+      series: [
+        {
+          name:'Temperature',
+          data: phpData.Temp
+        }
+      ],
+      credits: {enabled: false}
+    });
+  });
+}
+
 function init()
 {
 	$.getJSON("weather_now.php", updateWeather);
@@ -54,4 +97,6 @@ function init()
 	
 	//generate cam list
 	$.getJSON("working.txt", genCamEle);
+  
+  updateTempGraph();
 }
