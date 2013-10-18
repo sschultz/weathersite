@@ -25,13 +25,28 @@ function updateWeather(data)
 	document.getElementById("Precipitation").innerHTML = precip + ' in';
 	document.getElementById("Wind_val").innerHTML = windSp + ' mph ' + wind_dir;
 }
-function imageClicked()
+
+function imageClicked(args)
 {
-	var img = $('<img class="modal" src="'+ $(this).attr('src') +'" width="552" height="414"/>');
-	img.appendTo($('#blackout'));
+  var tbl = $('<table class="BigCamTbl"></table>');
+  var trow1 = $('<tr></tr>');
+  var trow2 = $('<tr></tr>');
+  var tdata = $('<td></td>');
+  
+	var img = $('<img class="modal" src="'+ args.data.URL +'" width="552" height="414"/>');
+	img.appendTo(tdata);
+  
+  tdata.appendTo(trow1);
+  tdata = $('<td>'+args.data.Desc+' ('+args.data.Direction+')'+'</td>');
+  tdata.appendTo(trow2);
+  trow1.appendTo(tbl);
+  trow2.appendTo(tbl);
+
+  tbl.appendTo($('#blackout'));
+
 	$('#blackout').fadeIn();
 	$('#blackout').click(function(){
-		img.remove();
+		tbl.remove();
 		$('#blackout').fadeOut();
 	})
 }
@@ -44,7 +59,7 @@ function genCamEle(cams)
 	{
     var tdata = $('<td></td>');
 		var img = $('<img class="camImage" src="'+cams[i].URL+'" width="190" height="142"/>');
-    img.click(imageClicked);
+    img.click(cams[i], imageClicked);
     img.appendTo(tdata);
     tdata.appendTo(row);
 	}

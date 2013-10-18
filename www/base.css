@@ -2,7 +2,8 @@ body {background-color:transparent;font-family:Helvetica,Arial,sans-serif;}
 p {color:black;background-color:#CCCCFF;}
 a {text-decoration:none;}
 #blackout {width:600px;height:1070px;position:absolute;display:none;z-index: 20; background-color: rgba(0,0,0,.5);}
-.modal {margin: 20px auto auto 25px; border: 2px solid #A0A0A0;cursor: pointer;}
+.BigCamTbl {border: 1px solid #101010; background-color: #DDDDDD; margin: 5px 5px 5px 5px; position:fixed; }
+.modal {border: 2px solid #A0A0A0;cursor: pointer;}
 .camImage {border: 1px solid #000000;cursor: pointer; float:middle}
 .camImage:hover {border: 1px solid #FF0000;}
 #menu {width:600;background-color:transparent;padding-top:4px;padding-left:4px;font-size:16px;font-family:Trebuchet MS;}
