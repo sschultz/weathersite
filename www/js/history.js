@@ -118,7 +118,7 @@ function updateGraphs(start, end) {
       series: [
         {
           name:'Wind Speed',
-          data: phpData.Pressure
+          data: phpData.WindSpeed
         }
       ],
       credits: {enabled: false}
