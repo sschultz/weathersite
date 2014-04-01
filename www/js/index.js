@@ -18,7 +18,8 @@ function updateWeather(data)
 	else if(wind_dir_deg >= 202.5 && wind_dir_deg < 337.5)
 		wind_dir = wind_dir + 'West';
 	
-	document.getElementById("date").innerHTML = "As of " + (d.getMonth()+1) + '/' + d.getDate() + '/'+ d.getFullYear() + ' ' + d.toLocaleTimeString();
+	document.getElementById("date").innerHTML = "As of " + (d.getMonth()+1) + '/' + d.getDate() + '/'+ d.getFullYear() + ' ' + 
+    d.getHours()%12 + ":" + d.getMinutes() + (d.getHours() > 12 ? " PM":" AM");
 	document.getElementById("temp").innerHTML = "<b>" + temp + " &deg;F</b>";
 	document.getElementById("Humidity_val").innerHTML = data['Humidity'] + '%';
 	document.getElementById("Pressure_val").innerHTML = pressure + ' inHg';
