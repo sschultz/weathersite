@@ -1,7 +1,7 @@
 function genCheckboxes(data)
 {
   //create table with header
-  tbl = $('<table><tr><th>Include?</th><th>Column Description</th></tr></table>');
+  tbl = $('<table><tr><th>Include?</th></tr></table>');
   
   //generate table rows
   n = data.names.length;
@@ -11,13 +11,13 @@ function genCheckboxes(data)
     //create row tag and data tag
     row = $('<tr></tr>');
     tdata = $('<td></td>');
-    //put check box into table data tag
-    tdata.append(check);
-    //put data tag into table row
+    
+    label = $('<label></label>')
+    label.append(check)
+    label.append($('<span>'+data.desc[i]+'</span>'))
+    
+    tdata.append(label)
     row.append(tdata);
-
-    //append table column description to same row
-    row.append($('<td>'+data.desc[i]+'</td>'));
     tbl.append(row);
   }
   
