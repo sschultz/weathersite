@@ -19,6 +19,16 @@
 </div>
 
 <div id='content'>
+	<div id='stationPanel'>
+		<form>
+			Select weather statoin:
+			<select id="selStation" onchange="updateTable()">
+				<option value="0">Wind Farm</option>
+				<option value="1">Davis</option>
+				<!-- Add more stations here (value must corispond to station value in data.php -->
+			</select>
+		</form>
+	</div>
   <div id='checkboxes'></div>
 </div>
 
