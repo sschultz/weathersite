@@ -1,13 +1,13 @@
 function genCheckboxes(data)
 {
   //create table with header
-  tbl = $('<table><tr><th>Include?</th></tr></table>');
+  tbl = $('<table><tr align="left"><th><span>Select fields to include</span><button onclick="selAll()">Select All</button></th></tr></table>');
   
   //generate table rows
   n = data.names.length;
   for(i=0;i<n;i++) {
     //create our checkbox for table row
-    check = $('<input type="checkbox" name="'+i+'">');
+    check = $('<input type="checkbox" class="checkboxes" id="'+i+'" name="'+i+'">');
     //create row tag and data tag
     row = $('<tr></tr>');
     tdata = $('<td></td>');
@@ -33,6 +33,13 @@ function updateTable()
   $('#checkboxes').empty();
   var stationId = $('#selStation').val();
   $.getJSON("tblCols.php?t="+stationId, genCheckboxes);
+}
+
+function selAll()
+{
+  $('#checkboxes input').each( function () {
+    $(this).prop('checked', true);
+  })
 }
 
 function init()
