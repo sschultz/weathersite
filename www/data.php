@@ -11,10 +11,6 @@ $tables = array("WindFarm", "Davis");
 $beforeDate = "";
 $afterDate = "";
 
-//select fields (0, 0, 0, 0 gets all)
-//since php doesn't support 128 bit integers we will use 4 32 bit integers to store the flags
-$colFlags = array(0,0,0,0);
-
 if(!empty($get_lower['dset']))
   $tableno = $get_lower['dset'];
 	
@@ -24,18 +20,11 @@ if(!empty($get_lower['after']))
 if(!empty($get_lower['before']))
 	$beforeDate = (new DateTime($get_lower['before']))->format('Y-m-d');
 
+//BEWARE PHP DOES NOT SUPPORT UNSIGNED INT
+//Column flags will be parsed as string of hex chars
+$colhexstring = "0";
 if(!empty($get_lower['cols']))
-{ //BEWARE PHP DOES NOT SUPPORT UNSIGNED INT
-  $colFlags[0] = intval(substr($get_lower['cols'],0,4),16);
-  $colFlags[1] = intval(substr($get_lower['cols'],4,4),16);
-  $colFlags[2] = intval(substr($get_lower['cols'],8,4),16);
-  $colFlags[3] = intval(substr($get_lower['cols'],12,4),16);
-  $colFlags[4] = intval(substr($get_lower['cols'],16,4),16);
-  $colFlags[5] = intval(substr($get_lower['cols'],20,4),16);
-  $colFlags[6] = intval(substr($get_lower['cols'],24,4),16);
-  $colFlags[7] = intval(substr($get_lower['cols'],28,4),16);
-  //var_dump($colFlags);
-}
+	$colhexstring = $get_lower['cols'];
 
 //connect to internal mysql database to retrieve column names
 $con=mysqli_connect("localhost","","", "INFORMATION_SCHEMA");
@@ -76,28 +65,42 @@ elseif($afterDate != "")
 elseif($beforeDate != "")
 	$dateselect = "WHERE `TIMESTAMP` < '" . $beforeDate . "'";
 
+$ColStrArr = [];
+	
 //if colFlags == 0 then get all table columns
-if(array_sum($colFlags) == 0) {
+if(intval($colhexstring,16) == 0) {
   $qry = "SELECT * FROM `" . $tables[$tableno] . "`" . $dateselect;
 	
   $results = mysqli_query($con, $qry);
 }
 else {
-  //only get columns specified by colFlags flags
-  for($order = 0; $order < 8; $order++)
-    for($shift = 0; $shift < 16; $shift++)
-      //1 corresponds to column 0, 10 corresponds to column 1, 100 corresponds to column 2, ... column 128
-      //Therefore 110 corresponds to columns 1 and 2
-      if((1<<$shift) & $colFlags[$order])
-      {
-        $colNo = $shift+$order*16;
-        if($colNo >= count($colNames))
-          break;
-        $ColStrArr[] = $colNames[$colNo];
-        //build an array listing all displayed columns by number
-        $dispColNo[] = $colNo;
-      }
-  
+  //only get columns specified by colhexstring flags
+	//This algorithm parses the string character by character
+	$len_colhexstring = strlen($colhexstring);
+	//for each character starting from the right (least significant value first)
+  for($strloc = $len_colhexstring; $strloc > 0; $strloc--)
+	{
+			$digitplace = $len_colhexstring-$strloc;
+      $char = $colhexstring[$strloc-1];
+			$charval = intval($char,16);
+			//for each character we must check for all combinations of bit string 0x0-0xF (0-15)
+			for($i = 0; $i < 16; $i++)
+			{
+				if((1<<$i) & $charval)
+				{
+					//each character accesses the next 4 flags (bits)
+					$colNo = 4*$digitplace+$i;
+					//make sure user didn't pass an invalid flag
+					if($colNo >= count($colNames))
+						break;
+					if($colNo < 0) exit();
+					//append the colomn name to list of columns to be downloaded
+					$ColStrArr[] = $colNames[$colNo];
+					$dispColNo[] = $colNo;
+				}
+			}
+	}
+	
   //remove dangling comma from end
   $ColStr = implode(",", $ColStrArr);
 
@@ -121,7 +124,7 @@ if($beforeDate != "")
 
 $filename = $tables[$tableno] . $details . '_DownloadedOn-' . date("Y-m-d_H-i");
 
-if(array_sum($colFlags)==0)
+if(intval($colhexstring)==0)
   $dispColNames = $colNames;
 else
   foreach($dispColNo as $colNo)
