@@ -49,6 +49,8 @@ String.prototype.replaceAt=function(index, character) {
 function download()
 {
   var stationId = $('#selStation').val();
+  var after = $('#startdate').val().toString();
+  var before = $('#enddate').val().toString();
   var flaghexstr = "";
   var flagbinstr = "";
   //convert checkboxes into hex flags string
@@ -85,16 +87,30 @@ function download()
     alert("No columns selected");
     exit();
   }
-  document.location.href="data.php?dset="+stationId+"&cols="+flaghexstr;
+  document.location.href="data.php?dset="+stationId+"&cols="+flaghexstr+"&before="+before+"&after="+after;
 }
 
 function downloadAll()
 {
   var stationId = $('#selStation').val();
-  document.location.href="data.php?dset="+stationId;
+  var after = $('#startdate').val().toString();
+  var before = $('#enddate').val().toString();
+  document.location.href="data.php?dset="+stationId+"&cols=0"+"&before="+before+"&after="+after;
 }
 
 function init()
 {
-  updateTable()
+  //Initialize date picker controls
+  start = new Date("2013/7/22");
+  end = new Date();
+  $('#startdate').datepicker();
+  $('#enddate').datepicker();
+  $('#startdate').val((start.getMonth()+1)+'/'+start.getDate()
++'/'+start.getFullYear());
+  $('#enddate').val((end.getMonth()+1)+'/'+end.getDate()+'/'+end.getFullYear());
+  
+  $('#dAll').append($('<button onclick="downloadAll()" type="button">Download All Fields</button>'));
+  
+  //fill table to pick fields with
+  updateTable();
 }
