@@ -20,7 +20,7 @@ function updateGraphs(start, end) {
       title: {text: 'Temperature'},
       chart: {zoomType: 'x'},
       xAxis: {
-        title: {text: 'Date'},
+        title: {text: 'Date/Time (GMT -6)'},
         //dateTimeLabelFormats: {day: ''}
         type: "datetime"
       },
@@ -47,7 +47,7 @@ function updateGraphs(start, end) {
       title: {text: 'Humidity'},
       chart: {zoomType: 'x'},
       xAxis: {
-        title: {text: 'Date'},
+        title: {text: 'Date/Time (GMT -6)'},
         //dateTimeLabelFormats: {day: ''}
         type: "datetime"
       },
@@ -74,7 +74,7 @@ function updateGraphs(start, end) {
       title: {text: 'Pressure'},
       chart: {zoomType: 'x'},
       xAxis: {
-        title: {text: 'Date'},
+        title: {text: 'Date/Time (GMT -6)'},
         //dateTimeLabelFormats: {day: ''}
         type: "datetime"
       },
@@ -101,7 +101,7 @@ function updateGraphs(start, end) {
       title: {text: 'Wind Speed'},
       chart: {zoomType: 'x'},
       xAxis: {
-        title: {text: 'Date'},
+        title: {text: 'Date/Time (GMT -6)'},
         //dateTimeLabelFormats: {day: ''}
         type: "datetime"
       },

@@ -101,7 +101,7 @@ function updateTempGraph() {
       title: {text: 'Temperature'},
       chart: {zoomType: 'x'},
       xAxis: {
-        title: {text: 'Date'},
+        title: {text: 'Date/Time (GMT -6)'},
         //dateTimeLabelFormats: {day: ''}
         type: "datetime"
       },
